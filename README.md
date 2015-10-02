@@ -10,13 +10,13 @@ The problem is divided into 3 basic steps:
   
 Each step is translated in a corresponding MapReduce round:  
 1. For the first round the Mapper just parses the input graph file, line by line (edge by edge). All the edges are being transferred to only one Reducer.  
-The Reducer computes the density of the whole graph, iterating over the edges and keeping track of the nr of edges and nodes. The output file produced by this Reducer is of the following form:  
-  
-\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#  
-\#    [src]<tab>[dst]<tab>[graph_density]    \#  
-\#... [src]<tab>[dst]<tab>[graph_density] ...\#  
-\#...........................................\#  
-\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#  
+The Reducer computes the density of the whole graph, iterating over the edges and keeping track of the nr of edges and nodes. The output file produced by this Reducer is of the following form::
+
+    ###############################################
+    #     [src]<tab>[dst]<tab>[graph_density]     #
+    # ... [src]<tab>[dst]<tab>[graph_density] ... #  
+    # ........................................... #  
+    ###############################################
   
 2. In the second round the Mapper parses the output file, line by line, produced by the previous  MapReduce round. For each parsed line, emits a <subgraphID, edge> keyvalue pair, randomly choosing the “subgraphID” in [0 graph_density ) range.
 The Reducer receives as input a <subgraphID, List<edge>> keyvalue pair, which corresponds to the  specific “subgraphID” subgraph of the original graph. For each edge of the corresponding subgraph, it explores the degrees (in the subgraph’s context) of both edge’s endpoints, and emits the edge only if the degrees of the both endpoints are greater than graph_density.
