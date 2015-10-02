@@ -19,7 +19,7 @@ The Reducer computes the density of the whole graph, iterating over the edges an
         ###############################################
   
  2. In the second round the Mapper parses the output file, line by line, produced by the previous  MapReduce round. For each parsed line, emits a <subgraphID, edge> keyvalue pair, randomly choosing the “subgraphID” in [0 graph_density) range.  
-The Reducer receives as input a <subgraphID, List<edge>> keyvalue pair, which corresponds to the  specific “subgraphID” subgraph of the original graph. For each edge of the corresponding subgraph, it explores the degrees (in the subgraph’s context) of both edge’s endpoints, and emits the edge only if the degrees of the both endpoints are greater than graph_density.  
+The Reducer receives as input a \<subgraphID, List\<edge\>\> keyvalue pair, which corresponds to the  specific “subgraphID” subgraph of the original graph. For each edge of the corresponding subgraph, it explores the degrees (in the subgraph’s context) of both edge’s endpoints, and emits the edge only if the degrees of the both endpoints are greater than graph_density.  
 This round is very important to the success of the entire algorithm because: first, the algorithm takes advantage of parallelized computation (subgraph pruning is done in each graph partition); and second, it throws away edges which endpoints have very few links (endpoint_degree < graph_density), and thus nodes with small degree that don’t contribute as much to the final desired result, are pruned.  
 In sum, the purpose of the round is to cross out those nodes that don’t contribute to the result, and, the output are the edges which endpoints are more suitable to help us in the task.
 
