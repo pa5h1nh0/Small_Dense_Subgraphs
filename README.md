@@ -4,9 +4,9 @@ where |E[V']| subset of E is the set of edges whose endpoints lie in V'. In this
 Several real-world graphs on which we can test our algorithms can be downloaded from the SNAP (Stanford Network Analysis Project) website: http://snap.stanford.edu/. Some of these graphs are directed, in which case one should take care of preprocessing them so that they are regarded as undirected in the algorithm.  
   
 The problem is divided into 3 basic steps:  
-1. Compute the density of the whole original graph;  
-2. Use the just computed density as a threshold for both pruning and partitioning of the graph;  
-3. Find the smallest subgraph with the corresponding degree threshold (rho value).  
+1. Compute the density of the whole original graph "ComputeGraphDensity";  
+2. Use the just computed density as a threshold for both pruning and partitioning of the graph "GraphPartitioning";  
+3. Find the smallest subgraph with the corresponding degree threshold (rho value) "ComputeMinDensitySubgraph".  
   
 Each step is translated in a corresponding MapReduce round:  
  1. For the first round the Mapper just parses the input graph file, line by line (edge by edge). All the edges are being transferred to only one Reducer.  
