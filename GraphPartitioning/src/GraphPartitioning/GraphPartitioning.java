@@ -76,7 +76,7 @@ public class GraphPartitioning
 		extends Mapper<LongWritable, Text, IntWritable, Text>	//<K_in, V_in, K_out, V_out>
 	{
 		//partition the graph, each edge is part of a subgraph
-		public void map(LongWritable key, Text record/*arco "[src]<tab>[dst]"*/, Context context) throws IOException
+		public void map(LongWritable key, Text record/*edge "[src]<tab>[dst]"*/, Context context) throws IOException
 		{
 			if(record.toString().isEmpty()) return;	
 			
@@ -134,7 +134,7 @@ public class GraphPartitioning
 				int src = Integer.valueOf(edge_[0]);
 				int dst = Integer.valueOf(edge_[1]);
 				
-				//CAUTION!	here we are pruning each subgraph
+				//IMPORTANT!	here we are pruning each subgraph
 				if(hashMap.get(src) > graphDensity && hashMap.get(dst) > graphDensity)
 				{
 					/* the output file will be as follows:
