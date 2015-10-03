@@ -75,11 +75,11 @@ public class ComputeGraphDensity
 	public static class GraphDensityMapper
 		extends Mapper<LongWritable, Text, IntWritable, Text>	//<K_in, V_in, K_out, V_out>
 	{
-		public void map(LongWritable key, Text edge/*arco "[src]<tab>[dst]"*/, Context context) throws IOException
+		public void map(LongWritable key, Text edge/*edge "[src]<tab>[dst]"*/, Context context) throws IOException
 		{
 			if(edge.toString().isEmpty()) return;
 			
-			//coppia <chiave, valore> come <1, arco>
+			//<key, value> pair as <1, edge>
 			try
 			{
 				context.write(new IntWritable(1), edge);
