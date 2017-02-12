@@ -10,7 +10,7 @@ The problem is divided into 3 basic steps:
   
 Each step is translated in a corresponding MapReduce round:  
  1. For the first round the Mapper just parses the input graph file, line by line (edge by edge). All the edges are being transferred to only one Reducer.  
-The Reducer computes the density of the whole graph, iterating over the edges and keeping track of the nr of edges and nodes. The output file produced by this Reducer is of the following form::
+The Reducer computes the density of the whole graph, iterating over the edges and keeping track of the nr of edges and nodes. The output file produced by this Reducer is of the following form:
 
         ###############################################
         #     [src]<tab>[dst]<tab>[graph_density]     #
